@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laporan | Jembawan</title>
+    <!--Bootstarp CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+    <!--My CSS-->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="home">
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Bayiku.id</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto"></ul>
+        </div>
+      </div>
+    </nav>
+    <!--Navbar last-->
+
+    <!--Jumbotron-->
+    <section class="jumbotron text-center">
+      <img src="img/profile.png" alt="Bayiku.id" width="200" class="rounded-circle img-thumbnail" />
+      <h1 class="display-4 fw-bold" style="color: aliceblue">Bayiku.Id</h1>
+      <h3 class="lead" id="about">Laporan Kegiatan</h3>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,96L34.3,117.3C68.6,139,137,181,206,181.3C274.3,181,343,139,411,101.3C480,64,549,32,617,21.3C685.7,11,754,21,823,48C891.4,75,960,117,1029,149.3C1097.1,181,1166,203,1234,181.3C1302.9,160,1371,96,1406,64L1440,32L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
+        ></path>
+      </svg>
+    </section>
+    <!--Jumbotron last-->
+
+    <!--Contact-->
+    <section id="contact">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <h2>Laporan</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-3 button">
+          <div class="col-md-8">
+            <div class="alert alert-succes alert-dismissible fade show d-none my-alert bg-primary" role="alert">
+              <strong>Terimakasih</strong> Laporan anda telah terkirim.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form name="Kegiatan">
+              <div class="mb-3">
+                <label for="name" class="form-label">Masukkan Nama</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" name="nama" />
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Jam Datang</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" name="datang" />
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Jam Pulang</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" name="pulang " />
+              </div>
+              <div class="mb-3">
+                <label for="pesan" class="form-label">Kegiatan</label>
+                <textarea class="form-control" id="pesan" rows="6" name="kegiatan"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-kirim">Submit</button>
+              <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Contact Last-->
+
+    <!--Footer-->
+    <footer class="bg-primary text-white fw-bold p-3">
+      <p>This Web Suported <a href="https://bayiku.id/" class="text-white">By Bayiku.Id</a></p>
+    </footer>
+    <!--Footer Last-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbzy5TyvMfRIrWG0cq3vgqhr4bRsXipGvivdPnbg8ZVqxL7ZrM7X7bRrDnYZYr7WRWLL/exec";
+      const form = document.forms["Kegiatan"];
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
+
+      form.addEventListener("submit", (e) => {
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            myAlert.classList.toggle("d-none");
+            form.reset();
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+  </body>
+</html>
